@@ -1,6 +1,6 @@
-## crispy: Styleguide
+# crispy: Styleguide
 
-# open this file in Browser:
+## open this file in Browser:
 ```
 /crispy_styleguide/pattern-lab/public/index.html
-```
+``
