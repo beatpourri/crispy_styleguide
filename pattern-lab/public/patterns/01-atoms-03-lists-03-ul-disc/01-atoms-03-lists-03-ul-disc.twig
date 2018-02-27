@@ -1,0 +1,42 @@
+{#
+/**
+ * Available variables:
+ * - ul_base_class - base classname
+ * - ul_element_class - element classname
+ *
+ * Available element classes:
+ * - disc
+ * - circle
+ * - square
+ *
+ * - ul_modifiers - modifier class
+ * Available block:
+ * - list_content
+ *
+ * Usage:
+ *  {% include "@atoms/03-lists/00-ul.twig" %}
+ *
+ */
+#}
+
+{% set ul_base_class = ul_base_class|default('list') %}
+{% set ul_element_class = ul_element_class|default('') -%}
+{% set ul_modifiers = ul_modifiers|default('') %}
+{% set ul_modifier %}
+    {% for ulitem in ul_modifiers %}{{ ul_base_class }}--{{ ulitem }} {% endfor %}
+{% endset %}
+{% set ul_classes %}{% if ul_base_class %}class="{{ ul_base_class|clean_class }} {% if ul_element_class %}{{ ul_base_class|clean_class }}__{{ ul_element_class|clean_class }}{% endif%}{% if ul_modifiers %}{{ ul_modifier|clean_class }}{% endif %}"{% endif %}{% endset %}
+
+<ul {{ ul_classes }}>
+  {% block list_content %}
+    {% for ul_item in ul_items %}
+      {% include "@atoms/03-lists/_list-item.twig" with {
+        "li_base_class": li_base_class,
+        "li_element_class": li_element_class,
+        "li_modifiers": li_modifiers,
+        "li_content": ul_item.content,
+      } %}
+    {% endfor %}
+  {% endblock %}
+</ul>
+

@@ -1,0 +1,31 @@
+{#
+/**
+ * Available variables:
+ * - site_wrapper_element - default "div"
+ * - site_wrapper_class_names - for an extra class - default: classname is the name of the region
+ * - site_content_prefix
+ * - site_content_suffix
+ *
+ * Available block:
+ * - site_content
+ *
+ * see:
+ * 03-organisms/site/_site.twig
+#}
+{% spaceless %}
+<main role="main" class="main">
+    <a id="main-content" tabindex="-1"></a>
+    {% if pl_only %} {# Pattern lab #}
+     MAIN
+    {% else %} {# Drupal #}
+        {{ drupal_block('crispy_messages') }}
+        {{ drupal_block('crispy_help') }}
+        {{ drupal_block('crispy_tools') }}
+        {{ drupal_block('crispy_local_tasks') }}
+        {{ drupal_block('crispy_local_actions') }}
+        {% block main_content %}
+            {{ content }}
+        {% endblock %}
+    {% endif %}
+</main>
+{% endspaceless %}

@@ -1,0 +1,36 @@
+{#
+/**
+ *** Available variables:
+ * link_content
+ * link_url
+ * read_more_prefix
+ * read_more_sufffix
+ * Usage:
+ *
+ * {% include "@molecules/links-with-icon/link-with-icon/readmore-link/readmore-link.twig"
+ * with {
+ * "link_url": link_url,
+ * }
+ * %}
+ *
+ * {% include "@molecules/links-with-icon/link-with-icon/readmore-link/readmore-link.twig"
+ * with {
+ * "link_url": link_url,
+ * "prefix": "<div>"
+ * "suffix: "</div>"
+ * }
+ * %}
+ */
+#}
+
+{% set icon_name = icon_name|default('readmore') %}
+{% set icon_align = icon_align|default('after') %}
+{% set link_modifiers = link_modifiers|default(['readmore']) %}
+{% set readmore_link_content %}
+    {{ 'Read more'|t }}
+{% endset %}
+{% set link_content = link_content|default(readmore_link_content) %}
+
+{{ read_more_prefix|raw }}
+    {% include "@atoms/02-link/link/02-link-with-icon.twig" %}
+{{ read_more_suffix|raw }}

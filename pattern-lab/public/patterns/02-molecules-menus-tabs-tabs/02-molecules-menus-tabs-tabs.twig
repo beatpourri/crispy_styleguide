@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Theme override to display primary and secondary local tasks.
+ *
+ * Available variables:
+ * - primary: HTML list items representing primary tasks.
+ * - secondary: HTML list items representing primary tasks.
+ *
+ * Each item in these variables (primary and secondary) can be individually
+ * themed in menu-local-task.html.twig.
+ */
+#}
+{% set tabs_classes = tabs_classes|default('tabs') %}
+
+{# Drupal #}
+{% if primary %}
+  <ul class="tabs__nav tabs__nav--local-tasks">{{ primary }}</ul>
+{% endif %}
+{% if secondary %}
+  <ul>{{ secondary }}</ul>
+{% endif %}
+
+{% spaceless %}
+{% if pl_only %}
+<div id="tabbed-interface" class="{{ tabs_classes }}">
+    <div role="tablist" aria-orientation="horizontal">
+        {% for key, listItem in listItems.three %}
+            {% include "@atoms/09-menu/tab/tab.twig"
+            with {
+            tab_text: listItem.month.long,
+            active_tab: '2',
+            }
+            %}
+        {% endfor %}
+    </div>
+    {% for key, listItem in listItems.three %}
+        {% include "@molecules/menus/tabs/_tabs_content.twig"
+        with {
+        tab_content: listItem.month.long,
+        active_item: '2',
+        }%}
+    {% endfor %}
+</div>
+{% endif %}
+{% endspaceless %}

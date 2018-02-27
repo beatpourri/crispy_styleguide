@@ -1,0 +1,46 @@
+{% set additional_attributes = {
+"class": ["foo", "bar"],
+"baz": ["foobar", "goobar"],
+"foobaz": "goobaz",
+} %}
+
+{% set additional_attributes2 = {
+"class": bem("foo", ["bar", "bar1"], "foobar"),
+"01": ["A", "B"],
+"02": "C",
+} %}
+
+{% set additional_attributes3 = {
+"class": ["classname"],
+"id": ["id1"],
+"aria-pressed": "false",
+"aria-describedby": "button-example",
+} %}
+
+
+{% embed "@atoms/01-text/text/01-paragraph.twig"%}
+    {% block paragraph %}
+        <xmp>
+            <div {{ add_attributes(additional_attributes) }}> </div>
+        </xmp>
+
+    {% endblock %}
+{% endembed %}
+
+{% embed "@atoms/01-text/text/01-paragraph.twig"%}
+    {% block paragraph %}
+        <xmp>
+            <div {{ add_attributes(additional_attributes2) }}> </div>
+        </xmp>
+
+    {% endblock %}
+{% endembed %}
+
+{% embed "@atoms/01-text/text/01-paragraph.twig"%}
+    {% block paragraph %}
+        <xmp>
+            <div {{ add_attributes(additional_attributes3) }}> </div>
+        </xmp>
+
+    {% endblock %}
+{% endembed %}

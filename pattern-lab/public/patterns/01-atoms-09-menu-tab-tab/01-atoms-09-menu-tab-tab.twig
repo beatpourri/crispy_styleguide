@@ -1,0 +1,40 @@
+{#
+/**
+ * @file
+ * Theme override for a local task link.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper element.
+ * - is_active: Whether the task tab is an active tab.
+ * - link: A rendered link element.
+ *
+ * Note: This template renders the content for each task tab in
+ * menu-local-tasks.html.twig.
+ *
+ * @see template_preprocess_menu_local_task()
+ */
+#}
+{% set tab_classes = tab_classes|default('tabs__tab button') %}
+{% set tab_element = tab_element|default('div') %}
+
+{% set active_tab =  active_tab|default('1') %}
+{% set active_tab_value =  active_tab - 1 %}
+
+{% if key == active_tab_value %}
+    {% set tab_aria_selected = 'true' %}
+{% else %}
+    {% set tab_aria_selected = 'false' %}
+{% endif %}
+
+
+{# Pattern lab #}
+{% if pl_only %}
+    <{{ tab_element }} class="{{ tab_classes }}" role="tab" aria-selected="{{ tab_aria_selected }}" id="tabs-{{ key + 1 }}" aria-controls="tabs-panel-{{ key + 1 }}" >
+      {{ tab_text }}
+    </{{ tab_element }}>
+{# Drupal #}
+{% else %}
+    <{{ tab_element }} class="{{ tab_classes }}" role="tab" aria-selected="{{ tab_aria_selected }}" id="tabs-{{ key + 1 }}" aria-controls="tabs-panel-{{ key + 1 }}" >
+    {{ tab_text }}
+    </{{ tab_element }}>
+{% endif %}

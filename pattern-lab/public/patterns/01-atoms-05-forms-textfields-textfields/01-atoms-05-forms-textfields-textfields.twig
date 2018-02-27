@@ -1,0 +1,64 @@
+<form class="" action="">
+    <fieldset class="form-fieldset">
+        <legend class="legend">Texfield  Password and Textarea (fieldset example)</legend>
+        {% include"@atoms/05-forms/textfields/01-textfield/textfield.twig" %}
+        {% include"@atoms/05-forms/textfields/02-password/password.twig" %}
+        {% include"@atoms/05-forms/textfields/03-text-area/text-area.twig" %}
+    </fieldset>
+
+    <fieldset class="form-fieldset">
+        <legend class="legend">Email Address and Web Address (fieldset example)</legend>
+        {% include"@atoms/05-forms/textfields/05-url-field/url-field.twig" %}
+        {% include"@atoms/05-forms/textfields/04-email/email.twig" %}
+    </fieldset>
+
+    <fieldset class="form-fieldset">
+        <legend class="legend">Number and Telephone (fieldset example)</legend>
+        {% include"@atoms/05-forms/textfields/06-number-field/number-field.twig" %}
+        {% include"@atoms/05-forms/textfields/07-tel-field/tel-field.twig" %}
+    </fieldset>
+
+    <fieldset class="form-fieldset">
+        {% include "@atoms/05-forms/checkbox/checkbox.twig"
+        with {
+        "checkbox_label": "Label text",
+        "checkbox_value": "custom_value",
+        "checkbox_name": "custom_name",
+        "form_legend_text": "Options as Checkbox",
+        }
+        %}
+
+        {% include "@atoms/05-forms/radio/radio.twig"
+        with {
+        "radio_label": "Label text",
+        "radio_value": "custom_value",
+        "radio_name": "custom_name",
+        "form_legend_text": "Options as Radio",
+        }
+        %}
+    </fieldset>
+
+    <fieldset>
+        {% include "@atoms/05-forms/select/select.twig"
+        with {
+        "select_label_text": "Select",
+        }
+        %}
+        {% include "@atoms/05-forms/select/select.twig"
+        with {
+        "select_label_text": "Select label text",
+        "label_text_visibility": "sr-only",
+        }
+        %}
+    </fieldset>
+
+    {% include "@atoms/06-buttons/01-button.twig"
+    with {
+    "button_content": "Submit",
+    "button_type": "submit",
+    "aria_describedby": "button-formsubmit",
+    "button_description_text": "Submit your form",
+    }
+    %}
+
+</form>

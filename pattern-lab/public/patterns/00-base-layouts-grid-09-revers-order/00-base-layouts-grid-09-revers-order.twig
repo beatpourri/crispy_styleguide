@@ -1,0 +1,42 @@
+{% include "@base/layouts/grid/00-gridbasic.twig"
+with {
+"grid_extra_class_names": "grid-reverse",
+
+"items": ['01 Lorem ipsum','02 Lorem ipsum','03 Lorem ipsum'],
+}
+%}
+
+{% embed "@base/layouts/grid/_grid-col-by-col.twig" %}
+    {% block grid_content %}
+
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "items": ['1 (display last up to small)'],
+        "col_extra_class_names": "col-last"
+        }
+        %}
+
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "items": ['2'],
+        }
+        %}
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "items": ['3 (display last up to small)'],
+        "col_extra_class_names": "col_medium-first"
+        }
+        %}
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "items": ['4'],
+        }
+        %}
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "items": ['5 (display first up to small)'],
+        "col_extra_class_names": "col_first"
+        }
+        %}
+    {% endblock %}
+{% endembed %}

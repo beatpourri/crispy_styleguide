@@ -1,0 +1,24 @@
+{#
+/**
+ *
+ *
+ *
+ * Usage:
+ *
+ */
+#}
+{% set tags_classes = tags_classes|default('list list__nostyle list__tag list--inline') %}
+
+{% spaceless %}
+<ul class="{{ tags_classes }}">
+    {% block tag_name %}
+        {% if pl_only %} {# Pattern lab #}
+            {% for item in names %}
+                {% include "@atoms/03-lists/tags/_tag.twig" %}
+            {% endfor %}
+     {#   {% else %} #}{# Drupal #}{#
+            {% include "@atoms/03-lists/tags/_tag.twig" %}#}
+    {% endif %}
+    {% endblock %}
+</ul>
+{% endspaceless %}

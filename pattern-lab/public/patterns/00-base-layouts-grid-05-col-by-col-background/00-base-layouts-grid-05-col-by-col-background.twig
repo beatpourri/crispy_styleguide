@@ -1,0 +1,18 @@
+{% embed "@base/layouts/grid/_grid-col-by-col.twig" %}
+    {% block grid_content %}
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "col_items_class_name": "12",
+        "col_breakpoint_names": ['small-6','medium-5','large-2','xl-1'],
+        "items": ['Test COL 0001'],
+        }
+        %}
+        {% include "@base/layouts/grid/_grid-col-item.twig"
+        with {
+        "col_items_class_name": "12",
+        "col_breakpoint_names": ['small-6','medium-7','large-10','xl-11'],
+        "items": ['Test COL 0002'],
+        }
+        %}
+    {% endblock %}
+{% endembed %}

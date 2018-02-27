@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html class="pl">
+  <head>
+    <title>Pattern Lab</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Pattern Lab base styles -->
+      <link rel="stylesheet" href="../../css/style.css?1519738979" media="all" />
+      <link rel="stylesheet" href="../../css/pattern-scaffolding.css?1519738979" media="all" />
+    <!-- Pattern Lab only custom styles -->
+      <link rel="stylesheet" href="../../../../components/_patterns/patternlab-only-custom.css?1519738979" media="all" />
+    <!-- Component styles -->
+      <link rel="stylesheet" href="../../../../dist/style.css?1519738979" media="all" />
+
+    <!-- Begin Pattern Lab (Required for Pattern Lab to run properly) -->
+    <!-- never cache patterns -->
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+
+<link rel="stylesheet" href="../../styleguide/css/styleguide.min.css?1519738979" media="all">
+<link rel="stylesheet" href="../../styleguide/css/prism-typeahead.min.css?1519738979" media="all" />
+    <!-- End Pattern Lab -->
+
+  </head>
+  <body class="body">
+    <!-- for js not found errors in Pattern Lab -->
+  	<div class="sr-only">
+  		<div id="tabs" class="tabs"></div>
+  	</div>
+  
+
+<button class="button    button--alt2  " id="button" aria-pressed="false" aria-describedby="button-example"      >
+                     
+
+
+
+<div class="button-icon button-icon--before button-icon--alt2"aria-hidden="true"></div>        
+        Button with Icon
+
+        
+    </button>
+<span id="button-example" class="sr-only">This is a button</span>
+
+
+  <!--DO NOT REMOVE-->
+  <script type="text/json" id="sg-pattern-data-footer" class="sg-pattern-data">
+  {"cssEnabled":false,"lineage":[{"lineagePattern":"atoms-button","lineagePath":"..\/..\/patterns\/01-atoms-06-buttons-03-button-with-icon\/01-atoms-06-buttons-03-button-with-icon.html"},{"lineagePattern":"atoms-button-with-icon","lineagePath":"..\/..\/patterns\/01-atoms-06-buttons-03-button-with-icon\/01-atoms-06-buttons-03-button-with-icon.html"},{"lineagePattern":"atoms-icon","lineagePath":"..\/..\/patterns\/01-atoms-06-buttons-03-button-with-icon\/01-atoms-06-buttons-03-button-with-icon.html"}],"lineageR":[{"lineagePattern":"atoms-button-with-icon","lineagePath":"..\/..\/patterns\/01-atoms-06-buttons-03-button-with-icon\/01-atoms-06-buttons-03-button-with-icon.html"}],"patternBreadcrumb":{"patternType":"atoms","patternSubtype":"buttons"},"patternDesc":"<h2>Button with icon styling<\/h2>\n\n<p><code>components\/_patterns\/01-atoms\/06-buttons\/_buttons.scss<\/code><\/p>\n\n<p><code>components\/_patterns\/00-base\/_mixins.scss<\/code><\/p>\n\n<p>Usage:<\/p>\n\n<pre><code class=\"scss\">.class {\n    @include button;\n}\n\n.class {\n    @include button-alt;\n}\n\n.class {\n    @include button-alt2;\n}\n<\/code><\/pre>\n\n<pre><code class=\"twig\">  {% include \"@atoms\/06-buttons\/03-button-with-icon.twig\"\n    with {\n    \"button_content\": \"Button text\",\n    \"button_base_class\": \"button\",\n    \"button_element_class\": \"elementclass\",\n    \"button_modifiers\": [\"alt2\"],\n    \"aria_pressed\": \"false\",\n    \"aria_describedby\": \"button-example\",\n    \"button_id\": \"button_state\",\n    \"icon_name\": \"svgfilename\",\n    \"icon_align\": \"before\",\n    \"button_description_text\" : \"An example button\"\n    }\n  %}\n<\/code><\/pre>\n\n<pre><code class=\"twig\">{% include \"@atoms\/06-buttons\/03-button-with-icon.twig\"\nwith {\n\"button_content\": \"button content text\",\n\"icon_name\": \"svgfilenmane\",\n\"icon_align\": \"before\",\n\"button_description_text\": \"Button description text\",\n}\n%}\n<\/code><\/pre>\n\n<pre><code class=\"twig\">{% include \"@atoms\/06-buttons\/03-button-with-icon.twig\"\nwith {\n\"button_content\": \"button txt\",\n\"icon_name\": \"svgfilenmane\",\n\"icon_align\": \"after\",\n\"button_description_text\": \"Button description text\",\n}\n%}\n<\/code><\/pre>\n\n<pre><code class=\"twig\">  {% include \"@atoms\/06-buttons\/03-butotn-with-icon.twig\"\n  with {\n        \"button_content\": \"Button text\",\n  }\n  %}\n<\/code><\/pre>","patternExtension":"twig","patternName":"Button with icon Styling","patternPartial":"atoms-button-with-icon","patternState":"","extraOutput":[]}
+</script>
+
+<script>
+  /*!
+  * scriptLoader - v0.1
+  *
+  * Copyright (c) 2014 Dave Olsen, http://dmolsen.com
+  * Licensed under the MIT license
+  *
+  */
+  
+  var scriptLoader = {
+    run: function(js,cb,target) {
+      var s  = document.getElementById(target+'-'+cb);
+      for (var i = 0; i < js.length; i++) {
+        var src = (typeof js[i] != 'string') ? js[i].src : js[i];
+        var c   = document.createElement('script');
+        c.src   = '../../'+src+'?'+cb;
+        if (typeof js[i] != 'string') {
+          if (js[i].dep !== undefined) {
+            c.onload = function(dep,cb,target) {
+              return function() {
+                scriptLoader.run(dep,cb,target);
+              }
+            }(js[i].dep,cb,target);
+          }
+        }
+        s.parentNode.insertBefore(c,s);
+      }
+    }
+  }
+</script>
+
+<script id="pl-js-polyfill-insert-1519738979">
+  (function() {
+    if (self != top) {
+      var cb = '1519738979';
+      var js = [];
+      if (typeof document !== 'undefined' && !('classList' in document.documentElement)) {
+        js.push('styleguide/bower_components/classList.min.js');
+      }
+      scriptLoader.run(js,cb,'pl-js-polyfill-insert');
+    }
+  })();
+</script>
+
+<script id="pl-js-insert-1519738979">
+  (function() {
+    if (self != top) {
+      var cb = '1519738979';
+      var js = [ { 'src': 'styleguide/bower_components/jwerty.min.js', 'dep': [ 'styleguide/js/patternlab-pattern.min.js' ] } ];
+      scriptLoader.run(js,cb,'pl-js-insert');
+    }
+  })();
+</script>
+
+  <!-- Drupal-specific usage -->
+  <!-- example using symlinking -->
+  <!-- cd web/themes/custom/crispy/components/js -->
+  <!-- ln -s ../../../../../core/assets/vendor/domready/ready.min.js ./ -->
+  <!-- ln -s ../../../../../core/misc/drupal.js ./ -->
+
+  <!-- UNCOMMENT AS NECESSARY -->
+  <!-- <script src="../../js/ready.min.js"></script> -->
+  <!-- <script src="../../js/drupal.js"></script> -->
+
+  <script src="../../../../dist/scripts-styleguide.js"></script>
+
+  <!-- If using Drupal.behaviors, uncomment for them to work in Pattern Lab -->
+  <!-- <script>Drupal.attachBehaviors();</script> -->
+
+  </body>
+</html>

@@ -1,0 +1,130 @@
+{#
+/**
+ * Available variables:
+ * - grid_element - default "div"
+ * - grid_wrapper_start
+ * - grid_prefix
+ * - grid_sufffix
+ * - grid_divider_before
+ * - grid_divider_before
+ * - grid_class_name  - default "grid"
+ * - grid_col_class_name - set from: "1" to "12"
+ * - grid_col_breakpoint_names - f.E.: ['xs-1', 'small-2' 'medium-4', 'large-8', 'xl-12']
+ * - grid_extra_class_names -
+ * - grid_content -
+ *
+ * Available block:
+ * - grid_content
+ *
+ * Usage:
+ *  {% include "@base/layouts/grid/00-gridbasic.twig" %}
+ *
+ * {% include "@base/layouts/grid/00-gridbasic.twig"
+ * with {
+ * "grid_col_class_name": "1",
+ * "grid_col_breakpoint_names": ['xs-1','small-2','medium-4','large-3','xl-6'],
+ * }
+ * %}
+ *
+ * see:
+ * 'components/_patterns/00-base/layouts/grid/_01-grid-vars.scss'
+ * 'components/_patterns/00-base/layouts/grid/_02-grid-mixins.scss'
+ * 'components/_patterns/00-base/layouts/grid/_03-grid-classes.scss'
+ *
+ */
+#}
+{%- set grid_element = grid_element|default('div') -%}
+{%- set grid_class_name = grid_class_name|default('grid') -%}
+{%- set grid_col_class_name = grid_col_class_name|default('') -%}
+{%- set grid_col_breakpoint_names = grid_col_breakpoint_names|default('') -%}
+{%- set grid_extra_class_names = grid_extra_class_names|default('') -%}
+
+{%- set grid_extra_classes -%}
+    {% if grid_extra_class_names %} {{ grid_extra_class_names }}{% endif %}
+{%- endset -%}
+{%- set grid_col_breakpoint -%}
+    {%- for colitem in grid_col_breakpoint_names -%}
+        {% if grid_class_name %} {{ grid_class_name }}{% endif %}{% if grid_col_class_name %}-{{ grid_col_class_name }}{% endif %}{% if colitem  %}_{{ colitem }}{% endif %}
+    {%- endfor -%}
+{%- endset -%}
+
+{%- set grid_classes -%}
+    {%- if grid_class_name and not grid_col_class_name and not grid_col_breakpoint -%}
+        class="{{ grid_class_name }}{{ grid_col_breakpoint }}{{ grid_extra_classes }}"
+    {% endif %}
+    {%- if grid_class_name and grid_col_class_name and not grid_col_breakpoint -%}
+        class="{{ grid_class_name }} {{ grid_class_name }}-{{ grid_col_class_name }}{{ grid_extra_classes }}"
+    {% endif %}
+    {%- if grid_class_name and grid_col_class_name and grid_col_breakpoint -%}
+        class="{{ grid_class_name }}{{ grid_col_breakpoint }}{{ grid_extra_classes }}"
+    {% endif %}
+    {%- if grid_class_name and not grid_col_class_name and grid_col_breakpoint_names -%}
+        class="{{ grid_class_name }}{{ grid_col_breakpoint }}{{ grid_extra_classes }}"
+    {% endif %}
+    {%- if grid_col_class_name and not grid_class_name and grid_col_breakpoint -%}
+        class="{{ grid_extra_classes }}
+        {%- for colitem in grid_col_breakpoint_names %}
+            grid{% if grid_col_class_name %}-{{ grid_col_class_name }}{% endif %}_{{ colitem }}
+        {%- endfor -%}"
+    {% endif %}
+{% endset %}
+
+{% set grid_start %}
+    {% if  grid_element %}
+        <{{ grid_element }} {{ grid_classes }}>
+    {% endif %}
+{% endset %}
+
+{% set grid_end %}
+    {% if  grid_element %}
+        </{{ grid_element }}>
+    {% endif %}
+{% endset %}
+
+{% set grid_wrapper_start %}
+    {% block grid_wrapper_start %}
+        {{ grid_wrapper_start|raw }}
+    {% endblock %}
+{% endset %}
+{% set grid_wrapper_end %}
+    {% block grid_wrapper_end %}
+        {{ grid_wrapper_end|raw }}
+    {% endblock %}
+{% endset %}
+{% set divider_before %}
+    {% if grid_divider_before %}
+        {% include "@molecules/divider/divider.twig" %}
+    {% endif %}
+{% endset %}
+
+{% set divider_after %}
+    {% if grid_divider_after %}
+        {% include "@molecules/divider/divider.twig" %}
+    {% endif %}
+{% endset %}
+{% set grid_prefix %}
+    {% block grid_prefix %}
+        {{ grid_prefix|raw }}
+        {{ divider_before }}
+    {% endblock %}
+{% endset %}
+{% set grid_suffix %}
+    {% block grid_suffix %}
+        {{ grid_suffix|raw }}
+        {{ divider_after }}
+    {% endblock %}
+{% endset %}
+
+
+{% spaceless %}
+    {{ grid_prefix }}
+        {{ grid_wrapper_start }}
+            {{ grid_start }}
+                {% block grid_content %}
+                    {{ grid_content }}
+                    {% include "@base/layouts/grid/_grid-item.twig" %}
+                {% endblock %}
+            {{ grid_end }}
+        {{ grid_wrapper_end }}
+    {{ grid_suffix }}
+{% endspaceless %}

@@ -1,0 +1,67 @@
+{#
+/**
+ * Available variables:
+ * - link_content - content of the link 
+ * - link_url - url of the link
+ * - link_target_value - "_blank", "_self"
+ * - link_title_value - "Link title text"
+ * - link_modifiers - "alt" or "alt2"
+ * - icon_name - svgfilenames
+ *
+ * Usage:
+ *
+ * {% include "@atoms/02-link/link/03-link-with-icon-buttonstyle.twig"
+ * with {
+ * "link_content": "Link text",
+ * "link_url": "your_url",
+ * "link_title_value": "Title text",
+ * "icon_name": "svgfilename",
+ * }
+ * %}
+ *
+ * customized "button style", target: change icon_name to "alt" or "alt_2" - see: components/_patterns/01-atoms/06-buttons
+ *
+ * {% include "@atoms/02-link/link/03-link-with-icon-buttonstyle.twig"
+ * with {
+ * "link_content": "Link text",
+ * "link_url": "your_url",
+ * "link_target_value": "_blank",
+ * "link_title_value": "Title text",
+ * "link_modifiers": ["alt"],
+ * "icon_name": "svgfilename",
+ * }
+ * %}
+ */
+#}
+{% set link_base_class = link_base_class|default('button') %}
+{% set icon_align = icon_align|default('before') %}
+
+{% set link_modifier %}{% for linkitem in link_modifiers %} {{ link_base_class }}--{{ linkitem }}{%- endfor -%}
+{% endset %}
+
+{%- set icon_button_variation -%}
+    {% spaceless %}
+        {{- link_modifier|replace({'button--': ""}) -}}
+    {% endspaceless %}
+{%- endset -%}
+
+{% embed "@atoms/02-link/link/01-link.twig" %}
+    {% block link_content %}
+        {%- if icon_align == 'before' -%}
+            {% include "@atoms/10-icon/01-icon.twig"
+            with {
+            "icon_basename" : "button-icon",
+            "icon_modifiers": ["before", icon_button_variation],
+            }
+            %}
+        {%- endif -%}
+        {{- link_content -}}
+        {%- if icon_align == 'after' -%}{%- include "@atoms/10-icon/01-icon.twig"
+            with {
+            "icon_basename" : "button-icon",
+            "icon_modifiers": ["after", icon_button_variation],
+            }
+            -%}
+        {%- endif -%}
+    {% endblock %}
+{% endembed %}

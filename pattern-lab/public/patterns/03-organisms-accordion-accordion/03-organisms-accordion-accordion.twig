@@ -1,0 +1,38 @@
+{#
+/**
+ * See:
+ * components/_patterns/02-molecules/accordion-item
+ * components/_patterns/01-atoms/03-lists/_dl_accordion.twig
+ *
+ * Variables:
+ *
+ * dl_modifiers -
+ * dl_blockname -
+ * dl_base_class: -
+ * dl_items: -
+ * icon_basename -
+ * icon_align: -
+ *
+ * Usage:
+ *
+ * {% include "@atoms/03-lists/_dl_accordion.twig" with {
+ * dl_modifiers: accordion_modifiers,
+ * dl_blockname: accordion_blockname,
+ * dl_base_class: 'accordion',
+ * dl_items: accordion_list,
+ * icon_basename : "accordion-icon",
+ * icon_align: "before",
+ * }
+ * %}
+ */
+#}
+
+{% include "@atoms/03-lists/_dl_accordion.twig" with {
+  dl_modifiers: accordion_modifiers,
+  dl_blockname: accordion_blockname,
+  dl_base_class: 'accordion',
+  dl_items: accordion_list,
+  icon_basename : "accordion-icon",
+  icon_align: "after",
+}
+%}

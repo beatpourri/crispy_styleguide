@@ -1,0 +1,121 @@
+{% set input_class_name = input_class_name|default('textfield') %}
+{% set form_item_class = form_item_class|default('form-item') %}
+{% set description_class = description_class |default(form_item_class~'__description sr-only') %}
+{% set error_class = error_class |default(form_item_class~'__error') %}
+{% set required = required|default('') %}
+{% set placeholder_text = placeholder_text|default('Enter a Phonenumber') %}
+{% set field_value = field_value|default('') %}
+{% set textfield_label_text = textfield_label_text|default('Phone') %}
+{% set description_text  = description_text |default('Here comes the description text for a telephone-field') %}
+{% set error_message_text  = error_message_text |default('') %}
+{% set textfield_id = textfield_id|default('edit-tel') %}
+{% set textfield_icon_align = textfield_icon_align|default('icon-after') %}
+{% set aria_describedby_id = 'tel-description'%}
+{% set form_icon_class_name = form_icon_class_name|default('textfield') %}
+{% if required is not empty %}
+    {% set required_form_item_modifier_class = '' %}
+{% endif %}
+{% set form_item_modifiers = form_item_modifiers|default([input_class_name, textfield_icon_align, required_form_item_modifier_class]) %}
+{% set textfield_label_class_name = textfield_label_class_name|default(form_item_class~'__label '~form_item_class~'__label--'~input_class_name) %}
+
+{% set textfield_label_class %}
+    {% if textfield_label_class_name %}
+        class="{{ textfield_label_class_name }}"
+    {% endif %}
+{% endset %}
+{% set input_class_name_required %}
+    {% if required is not empty %}
+        {{ form_item_class }}__{{ input_class_name }}--required
+    {% endif %}
+{% endset %}
+{% set input_class %}
+    {% if input_class_name %}
+        class="{{ form_item_class }}__{{ input_class_name }} {{ input_class_name_required }}"
+    {% endif %}
+{% endset %}
+{% set field_size_value  = field_size_value |default('') %}
+{% set field_maxlength_value  = field_maxlength_value |default('') %}
+{% if required is not empty %}
+    {% set field_required %}
+        required="required" aria-required="true"
+    {% endset %}
+{% endif %}
+{% if placeholder_text is not empty %}
+    {% set field_placeholder %}
+        placeholder="{{ placeholder_text }}"
+    {% endset %}
+{% endif %}
+{% set value %}
+    value="{{ field_value }}"
+{% endset %}
+{% if field_size_value is not empty %}
+    {% set field_size %}
+        size="{{ field_size_value }}"
+    {% endset %}
+{% endif %}
+{% if field_maxlength_value is not empty %}
+    {% set field_maxlength %}
+        maxlength="{{ field_maxlength_value }}"
+    {% endset %}
+{% endif %}
+{% set form_icon %}
+    {% if form_icon_class_name %}
+        {% include "@atoms/10-icon/01-icon.twig"
+        with {
+        "tag": "span",
+        "icon_name": form_icon_class_name,
+        "icon_basename" : form_item_class~'-icon',
+        }
+        %}
+    {% endif %}
+{% endset %}
+{% set field_type = {
+"type": "tel",
+}
+%}
+{% set field_name = {
+"name": "phone",
+}
+%}
+{% set pattern = {
+"pattern": "[0-9]*",
+}
+%}
+{% set field_autocorrect = {
+"autocorrect": "none",
+}
+%}
+{% set field_autocapitalize = {
+"autocapitalize": "none",
+}
+%}
+{% set field_spellcheck = {
+"spellcheck": "none",
+}
+%}
+{% set description %}
+    {% if description_text %}
+        <div id="{{ aria_describedby_id }}" class="{{ description_class }}">
+            {{ description_text }}
+        </div>
+    {% endif %}
+{% endset %}
+{% set mandatory %}
+    {% if required is not empty %}
+        <span class="asterix asterix--mandatory" aria-hidden="true">*</span>
+    {% endif %}
+{% endset %}
+{% set error_message %}
+    {% if error_message_text %}
+        <div class="{{ error_class }}">
+            {{ error_message_text }}
+        </div>
+    {% endif %}
+{% endset %}
+<div {{ bem(form_item_class, form_item_modifiers) }}>
+  <label for="{{ textfield_id }}{{ key }}" {{ textfield_label_class }}>{{ textfield_label_text }}</label>{{ mandatory }}
+    <input id="{{ textfield_id }}{{ key }}" {{ add_attributes(field_autocorrect) }} {{ add_attributes(pattern) }} {{ add_attributes(field_autocapitalize) }} {{ add_attributes(field_spellcheck) }} aria-describedby="{{ aria_describedby_id }}{{ key }}" {{ add_attributes(field_type) }} {{ add_attributes(field_name) }}  {{ field_size }} {{ field_maxlength }} {{ field_required }} {{ field_placeholder }} {{ value }} {{ input_class }}>
+    {{ description }}
+    {{ error_message }}
+    {{ form_icon }}
+</div>

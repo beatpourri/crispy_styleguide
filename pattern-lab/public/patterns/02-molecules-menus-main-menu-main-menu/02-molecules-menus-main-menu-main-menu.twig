@@ -1,0 +1,147 @@
+<nav role="navigation" aria-labelledby="block-crispy-main-menu" id="block-crispy-main-menu" class="navigation navigation--main">
+    <h2 id="block-crispy-main-menu" class="sr-only">Main navigation</h2>
+    <ul class="main-menu">
+        <li class="main-menu__item">
+            <a class="link link__main-menu" href="/" title="Home">Home</a>
+        </li>
+        <li class="main-menu__item">
+            <a class="link link__main-menu" href="/node/185" title="LInk 02">LINK 02</a>
+        </li>
+        <li class="main-menu__item main-menu__item--expanded">
+            <a class="link link__main-menu" href="/articles" title="Articles">Articles</a>
+            <ul class="main-menu__sub sub-1">
+                <li class="main-menu__sub--item main-menu__sub--item-expanded main-menu__sub-1--item">
+                    <a class="link link__main-menu" href="/node/186" title="test">testadas asdas as s asd as d as </a>
+                    <ul class="main-menu__sub sub-2">
+                        <li class="main-menu__sub--item main-menu__sub--item-expanded main-menu__sub-2--item">
+                            <a class="link link__main-menu" href="/node/183" title="test2">test2</a>
+                            <ul class="main-menu__sub sub-3">
+                                <li class="main-menu__sub--item main-menu__sub-3--item">
+                                    <a class="link link__main-menu" href="/node/183" title="werftg">werftg</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+
+
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ *
+ * Available variables:
+ * - menu_name: The machine name of the menu.
+ * - items: A nested list of menu items. Each menu item contains:
+ *   - attributes: HTML attributes for the menu item.
+ *   - below: The menu item child items.
+ *   - title: The menu link title.
+ *   - url: The menu link url, instance of \Drupal\Core\Url
+ *   - localized_options: Menu link localized options.
+ *   - is_expanded: TRUE if the link has visible children within the current
+ *     menu tree.
+ *   - is_collapsed: TRUE if the link has children within the current menu tree
+ *     that are not currently visible.
+ *   - in_active_trail: TRUE if the link is in the active trail.
+ */
+#}{#
+
+{% import _self as menus %}
+
+#}
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}{#
+
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+
+    {% set menu_class_name = menu_class_name|default('main-menu') %}
+    {% set menu_sub_class_name = menu_sub_class_name|default( menu_class_name~'__sub') %}
+
+
+    {% set menu_sub_class %}
+        class="{{ menu_sub_class_name }} sub-{{ menu_level }}"
+    {% endset %}
+    {% if menu_level == 0 %}
+        {% set menu_class %}
+<ul{{ attributes.addClass( menu_class_name ) }}>
+    {% endset %}
+    {% elseif menu_level > 0 %}
+    {% set menu_class %}
+    <ul{{ attributes.addClass|without('class') }}{{ menu_sub_class }}>
+        {% endset %}
+        {% endif %}
+
+
+        {% import _self as menus %}
+        {% if items %}
+        {{ menu_class }}
+        {% for item in items %}
+            {% if menu_level == 0 %}
+                {%
+                set classes = [
+                menu_class_name~'__item',
+                item.is_expanded ? menu_class_name~'__item--expanded',
+                item.is_collapsed ? menu_class_name~'__item--collapsed',
+                item.in_active_trail ? menu_class_name~'__item--active-trail',
+                ]
+                %}
+            {% elseif menu_level > 0 %}
+                {%
+                set classes = [
+                menu_sub_class_name~'--item',
+                item.is_expanded ? menu_sub_class_name~'--item-expanded',
+                item.is_collapsed ? menu_sub_class_name~'--item-collapsed',
+                item.in_active_trail ? menu_sub_class_name~'--item-active-trail',
+                menu_sub_class_name~'-'~menu_level~'--item',
+                ]
+                %}
+            {% endif %}
+            <li{{ item.attributes.addClass(classes) }}>
+                {% set current = '' %}
+                {% set link_url = '' %}
+                {% if current == link_url %}
+                    {% set item_active = 'is-active' %}
+                {% else %}
+                    {% set item_active = '' %}
+                {% endif %}
+
+                {% if current == link_url %}
+                    {% include "@atoms/02-link/link/01-link.twig"
+                    with {
+                    "link_content": item.title,
+                    "link_url": item.url,
+                    "link_title_value": item.title,
+                    "link_element_class": menu_class_name,
+                    "link_modifiers": [item_active],
+                    }
+                    %}
+                {% else %}
+                    {% include "@atoms/02-link/link/01-link.twig"
+                    with {
+                    "link_content": item.title,
+                    "link_url": item.url,
+                    "link_title_value": item.title,
+                    "link_element_class": menu_class_name,
+                    }
+                    %}
+                {% endif %}
+
+                {% if item.below %}
+                    {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endmacro %}
+#}

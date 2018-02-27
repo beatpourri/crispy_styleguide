@@ -1,0 +1,79 @@
+{#
+/**
+ * Available variables:
+ * - form_item_class - custom-form-item-class
+ * - form_item_modifiers - ['custom-modifier1', 'custom-modifier2']
+ * - form_legend_class - custom-form-legend-class - f.E: if you want the legend "invisible": 'sr-only'
+ * - form_item_checkbox_modifiers - ['custom-checkbox-modifier1']
+ * - form_legend_text - Legend text
+ *
+ * Usage:
+ *
+ * {% include "@atoms/05-forms/checkbox/checkbox.twig" %}
+ *
+ * {% include "@atoms/05-forms/checkbox/checkbox.twig"
+ * with {
+ * "checkbox_item": "item content",
+ * "checkbox_label": "Label text",
+ * "checkbox_value": "custom_value",
+ * "checkbox_name": "custom_name",
+ * "form_legend_text": "Custom legend text",
+ * }
+ * %}
+ *
+ */
+#}
+
+{% set form_item_class = form_item_class|default('form-item') %}
+{% set form_item_modifiers = form_item_modifiers|default(['checkbox']) %}
+{% set form_item_checkbox_modifiers = form_item_checkbox_modifiers|default(['checkboxes']) %}
+{% set form_legend_text = form_legend_text|default('')%}
+{% set form_legend_class = form_legend_class|default('legend')%}
+{% set form_legend %}
+    class="{{ form_legend_class }}"
+{% endset %}
+{% spaceless %}
+{% if prefix is not empty %}
+    {{ prefix }}
+{% endif %}
+<div {{ bem(form_item_class, form_item_modifiers) }}>
+
+    {% if description_display == 'before' and description.content %}
+        <div{{ description.attributes }}>
+            {{ description.content }}
+        </div>
+    {% endif %}
+    {% if pl_only %} {# Pattern lab #}
+        <legend {{ form_legend }}>{{ form_legend_text }}</legend>
+    {% endif %}
+  <ul {{ bem(form_item_class, form_item_checkbox_modifiers) }}>
+      {% if pl_only %} {# Pattern lab #}
+      {% for key, listItem in listItems.four %}
+        {% include "@atoms/05-forms/checkbox/_checkbox-item.twig"
+        with {
+        "checkbox_label_text": listItem.title,
+        }
+        %}
+      {% endfor %}
+      {% else %} {# Drupal #}
+          {# see components/_patterns/01-atoms/05-forms/checkbox/_checkbox-item.twig #}
+          {# see templates/form/input--checkbox.html.twig #}
+          {{ children }}
+      {% endif %}
+  </ul>
+    {% if errors %}
+        <div class="form-item--error-message">
+            {{ errors }}
+        </div>
+    {% endif %}
+    {% if description_display in ['after', 'invisible'] and description.content %}
+        <div{{ description.attributes.addClass(description_classes) }}>
+            {{ description.content }}
+        </div>
+    {% endif %}
+
+</div>
+{% if suffix is not empty %}
+    {{ suffix }}
+{% endif %}
+{% endspaceless %}

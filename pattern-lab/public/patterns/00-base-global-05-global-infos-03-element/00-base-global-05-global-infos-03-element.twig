@@ -1,0 +1,29 @@
+<xmp>
+    <div {{ bem('elementname', [], 'baseclass') }}></div>
+</xmp>
+
+<xmp>
+    <div {{ bem('elementname', [], '') }}>
+
+    </div>
+</xmp>
+
+{% embed "@atoms/01-text/text/01-paragraph.twig"
+with {
+"paragraph_content": bem_content,
+}
+%}
+    {% block paragraph %}
+
+        {{ paragraph_content }}
+
+        {% include "@atoms/02-link/link/01-link.twig"
+        with {
+        "link_content": bem_link_content,
+        "link_url": "https://en.bem.info/methodology/quick-start/#block",
+        "link_target_value": "_blank",
+        }
+        %}
+
+    {% endblock %}
+{% endembed %}

@@ -1,0 +1,67 @@
+{#
+/**
+ * Available variables:
+ * - link_content - content of the link
+ * - link_url - url of the link
+ * - link_target_value - "_blank", "_self"
+ * - link_title_value - "your link title text"
+ * - link_base_class - base class name
+ * - link_element_class - element class name
+ * - link_modifiers - modifier classname
+ * - link_prefix
+ * - link_suffix
+ *
+ * Available blocks:
+ * - "link_content"
+ *
+ * Usage:
+ *
+ * {% include "@atoms/02-link/link/01-link.twig"
+ * with {
+ * "link_content": "Text with link",
+ * "link_url": "your_url",
+ * }
+ * %}
+ *
+ * with customized classes:
+ *
+ * {% include "@atoms/02-link/link/01-link.twig"
+ * with {
+ * "link_content": "Text with link",
+ * "link_url": "your_url",
+ * "link_target_value": "_blank",
+ * "link_title_value": "Title text",
+ * "link_base_class": "your_baseclass_overwrite",
+ * "link_element_class": "your_elementnameclass_overwrite",
+ * "link_modifiers": ["your_custom_modifier1", "your_custom_modifier2"],
+ * }
+ * %}
+ *
+ */
+#}
+
+{% set link_base_class = link_base_class|default('link') %}
+{% set link_element_class = link_element_class|default('') -%}
+{% set link_modifiers = link_modifiers|default('') %}
+{% set link_modifier %}{% for linkitem in link_modifiers %} {{ link_base_class }}--{{ linkitem }}{%- endfor -%}
+{% endset %}
+{% set link_classes %}{% if link_base_class %}class="{{ link_base_class }}{% if link_element_class %} {{ link_base_class }}__{{ link_element_class }}{% endif%}{% if link_modifiers %}{{ link_modifier }}{% endif %}"{% endif %}{% endset %}
+{% set target %}
+  {% if link_target_value %}
+    target="{{ link_target_value }}"
+  {% endif %}
+{% endset %}
+{% set link_title %}
+    {% if link_title_value %}
+        title="{{ link_title_value }}"
+    {% endif %}
+{% endset %}
+{% spaceless %}
+    {{ link_prefix }}
+<a {{ link_classes }} href="{{ link_url }}" {{ target }} {{ link_title }}>
+  {%- block link_content -%}
+          {{- link_content -}}
+  {%- endblock -%}
+</a>
+    {{ link_suffix }}
+{% endspaceless %}

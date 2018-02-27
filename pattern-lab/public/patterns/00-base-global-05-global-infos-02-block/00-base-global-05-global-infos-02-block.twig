@@ -1,0 +1,37 @@
+{% embed "@atoms/01-text/text/01-paragraph.twig"%}
+    {% block paragraph %}
+        <xmp>
+              <div {{ bem('baseclass') }}>Baseclass only</div>
+        </xmp>
+    {% endblock %}
+{% endembed %}
+
+
+{% embed "@atoms/01-text/text/01-paragraph.twig"%}
+    {% block paragraph %}
+        <xmp>
+            <div {{ bem('baseclass', ['modifier1', 'modifier2']) }}>Baseclass modifiers</div>
+        </xmp>
+    {% endblock %}
+{% endembed %}
+
+
+{% embed "@atoms/01-text/text/01-paragraph.twig"
+with {
+"paragraph_content": bem_content,
+}
+%}
+    {% block paragraph %}
+
+        {{ paragraph_content }}
+
+        {% include "@atoms/02-link/link/01-link.twig"
+        with {
+        "link_content": bem_link_content,
+        "link_url": "https://en.bem.info/methodology/quick-start/#block",
+        "link_target_value": "_blank",
+        }
+        %}
+
+    {% endblock %}
+{% endembed %}

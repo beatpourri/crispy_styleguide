@@ -1,0 +1,29 @@
+{#
+/**
+ * See:
+ * components/_patterns/01-atoms/03-lists/_list-item-definition_accordion.twig
+ * Available variables:
+ * dl_term_base_class: - your custom class - default: ' 'accordion-term',
+ * dl_def_base_class: - your custom class - default: 'accordion-def',
+ * dl_term: accordion_term -
+ * dl_def: accordion_def -
+ * icon_align - default:"before" you can change it to: "after"
+ * icon_basename - default: "accordion-icon"
+ * icon_name - "yourSVGfilename" - default: "show" - svgs are here: 'components/_patterns/01-atoms/10-icon/svg'
+ *
+ *
+ * Usage:
+ *
+ */
+#}
+{% set icon_basename = icon_basename|default('accordion-icon') %}
+{% set icon_align = icon_align|default('after') %}
+
+{% include "@atoms/03-lists/_list-item-definition_accordion.twig"
+with {
+dl_term_base_class: 'accordion-term',
+dl_def_base_class: 'accordion-def',
+dl_term: accordion_term,
+dl_def: accordion_def,
+}
+%}

@@ -1,0 +1,36 @@
+{#
+/**
+ * Available variables:
+ * - blockquote_base_class - the base classname
+ * - blockquote_modifiers - array of modifiers to add to the base classname
+ * - blockquote_blockname - blockname prepended to the base classname
+ * - blockquote_url - the url this blockquote should point to
+ * - blockquote_content - the content of the blockquote (typically text)
+ *
+ * Available blocks:
+ * - blockquote_content - used to replace the content of the blockquote with something other than text
+ *   for example: A formatted text field in Drupal
+ */
+#}
+{% set blockquote_base_class = blockquote_base_class|default('blockquote') %}
+
+{% set blockquote_element_class = blockquote_element_class|default('') -%}
+{% set blockquote_modifiers = blockquote_modifiers|default('') %}
+{% set blockquote_modifier %}
+  {% for blockquoteitem in blockquote_modifiers %}{{ blockquote_base_class }}--{{ blockquoteitem }} {% endfor %}
+{% endset %}
+{% set blockquote_classes %}{% if blockquote_base_class %}class="{{ blockquote_base_class|clean_class }}{% if blockquote_element_class %} {{ blockquote_base_class|clean_class }}__{{ blockquote_element_class|clean_class }}{% endif%}{% if blockquote_modifiers %}{{ blockquote_modifier|clean_class }}{% endif %}"{% endif %}{% endset %}
+
+{% set blockquote_cite %}
+  {% if blockquote_cite %}
+    <cite>{{ blockquote_cite }}</cite>
+  {% endif %}
+{% endset %}
+
+
+<blockquote {{ blockquote_classes }} >
+  {% block blockquote_content %}
+    {{ blockquote_content }}
+  {% endblock %}
+  {{ blockquote_cite }}
+</blockquote>

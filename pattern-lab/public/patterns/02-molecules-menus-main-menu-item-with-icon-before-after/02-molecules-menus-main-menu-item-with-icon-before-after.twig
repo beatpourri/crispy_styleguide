@@ -1,0 +1,82 @@
+{#
+/**
+ * Available variables:
+ * - link_content - content of the link
+ * - link_url - url of the link
+ * - link_target_value - "_blank", "_self"
+ * - link_title_value - "your link title text"
+ * - link_base_class - base class name
+ * - link_element_class - element class name
+ * - link_modifiers - modifier classname
+ * - icon_align - before or after
+ * - icon_name - svgfilename
+ *
+ * Available blocks:
+ * - "link_content"
+ *
+ * Usage:
+ * {% include "@atoms/02-link/link/02-link-with-icon.twig"
+ * with {
+ * "link_content": "Text with link",
+ * "link_url": "your_url",
+ * "icon_name": "svgfilename",
+ * }
+ * %}
+ *
+ * customized:
+ *
+ * {% include "@atoms/02-link/link/03-link-with-icon-before-after.twig"
+ * with {
+ * "link_content": "Text with link",
+ * "link_url": "your_url",
+ * "link_target_value": "_blank",
+ * "link_title_value": "Title text",
+ * "icon_name_before": "svgfilename",
+ * "icon_name_after": "svgfilename",
+ * }
+ * %}
+ * svg files are here:
+ * components/_patterns/01-atoms/10-icon/svg
+ */
+#}
+{% set icon_name_before = icon_name_before|default('')%}
+{% set icon_name_after = icon_name_after|default('')%}
+
+{% set link_suffix %}
+    {% if icon_name_after %}
+        {% include "@atoms/10-icon/01-icon.twig"
+        with {
+        "icon_basename" : "link-icon",
+        "icon_modifiers": ["after"],
+        "icon_name": icon_name_after,
+        }
+        %}
+    {% endif %}
+{% endset %}
+
+
+{% embed "@atoms/02-link/link/01-link.twig" %}
+
+    {%- block link_content -%}
+        {%- if icon_name_before -%}
+            {% include "@atoms/10-icon/01-icon.twig"
+            with {
+            "icon_basename" : "link-icon",
+            "icon_modifiers": ["before"],
+            "icon_name": icon_name_before,
+            }
+            %}
+        {%- endif -%}
+        {{- link_content -}}
+        {%- if icon_name_after and not link_suffix -%}
+            {%- include "@atoms/10-icon/01-icon.twig"
+                with {
+                "icon_basename" : "link-icon",
+                "icon_modifiers": ["after"],
+                "icon_name": icon_name_after,
+                }
+            -%}
+        {%- endif -%}
+    {%- endblock -%}
+{% endembed %}
+
