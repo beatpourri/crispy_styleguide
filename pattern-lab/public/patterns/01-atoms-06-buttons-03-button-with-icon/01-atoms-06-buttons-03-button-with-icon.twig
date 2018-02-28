@@ -16,12 +16,6 @@
  * - button_content
  * Usage:
  *
-  * {% include "@atoms/06-buttons/01-button.twig"
- * with {
- *       "button_content": "Button text",
- *  }
- *  %}
- *
  * {% include "@atoms/06-buttons/03-button-with-icon.twig"
  *   with {
  *   "button_content": "Button text",
@@ -39,9 +33,9 @@
  * - Icon before
  * {% include "@atoms/06-buttons/03-button-with-icon.twig"
  * with {
- * "button_content": "button with Icon left",
+ * "button_content": "button with Icon Left",
  * "button_modifiers": ["alt2"],
- * "icon_name": "svgfilename",
+ * "icon_name": "square",
  * "icon_align": "before",
  * "button_description_text": "Button Description text",
  * }
@@ -51,7 +45,7 @@
  * with {
  * "button_content": "button with Icon Right",
  * "button_modifiers": ["alt2"],
- * "icon_name": "svgfilename",
+ * "icon_name": "disc",
  * "icon_align": "after",
  * "button_description_text": "Button Description text",
  * }
@@ -65,7 +59,6 @@
         {% if icon_align == 'before' %}
             {% include "@atoms/10-icon/01-icon.twig"
             with {
-            "icon_basename" : "button-icon",
             "icon_modifiers": ["before"],
             }
             %}
@@ -76,7 +69,6 @@
         {% if icon_align == 'after' %}
             {% include "@atoms/10-icon/01-icon.twig"
             with {
-            "icon_basename" : "button-icon",
             "icon_modifiers": ["after"],
             }%}
         {% endif %}
